@@ -1,0 +1,17 @@
+{
+    "name": "cperbony/app-php-catalog-video",
+    "description": "Curso Full Cycle 3.0 PHP",
+    "authors": [
+        {
+            "name": "Claudinei Perboni",
+            "email": "cperbony@gmail.com"
+        }
+    ],
+    "archive": {
+        "psr-4": {
+            "Core\\": "src/Core/"
+        }
+    },
+    "require": {}
+
+}
