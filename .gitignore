@@ -1,2 +1,4 @@
 /vendor/
 *.log
+phpunit.xml
+.phpunit.result.cache
