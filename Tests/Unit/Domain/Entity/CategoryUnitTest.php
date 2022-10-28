@@ -3,10 +3,11 @@
 namespace Unit\Domain\Entity;
 
 
+use Throwable;
+use Ramsey\Uuid\Uuid;
+use PHPUnit\Framework\TestCase;
 use Core\Domain\Entity\Category;
 use Core\Domain\Exception\EntityValidationException;
-use PHPUnit\Framework\TestCase;
-use Throwable;
 
 class CategoryUnitTest extends TestCase
 {
@@ -15,37 +16,48 @@ class CategoryUnitTest extends TestCase
      */
     public function testAttributes()
     {
+ 
+        $uuid = (String) Uuid::uuid4()->toString();
+        
         $category = new Category(
-            id: 123,
+            id: $uuid,
             name: 'New Cat',
             description: 'New Desc',
             isActive: true
         );
 
+        var_dump($category);
+        
+        $this->assertNotEmpty($category->createdAt());
+        $this->assertNotEmpty($category->id());
         $this->assertEquals('New Cat', $category->name);
         $this->assertEquals('New Desc', $category->description);
         $this->assertTrue(true, $category->isActive);
 
     }
 
-    public function testActived()
-    {
-        $category = new Category(
-            id: 123,
-            name: 'Ne',
-            isActive: false
-        );
+    // public function testActived()
+    // {
+    //     $category = new Category(
+    //         id: '123',
+    //         name: 'Ne',
+    //         isActive: false,
+    //         createdAt: '2022-11-01 12:12:12'
+    //     );
 
-        $this->assertFalse(condition: $category->isActive);
-        $category->activate();
-        $this->assertTrue($category->isActive);
-    }
+    //     $this->assertFalse($category->isActive);
+    //     $category->activate();
+    //     $this->assertTrue(false, $category->isActive);
+    // }
 
     public function testDisabled()
     {
+        $uuid = (String) Uuid::uuid4()->toString();
+        
         $category = new Category(
-            id: '12',
+            id: $uuid,
             name: 'New Cat',
+            description: 'New Desc',
             isActive: true
         );
 
@@ -59,13 +71,14 @@ class CategoryUnitTest extends TestCase
      */
     public function testUpdate()
     {
-        $uuid = 'uuid.vale';
+        $uuid = (String) Uuid::uuid4()->toString();
 
         $category = new Category(
             id: $uuid,
             name: 'New Cat',
             description: 'New Desc',
-            isActive: true
+            isActive: true,
+            createdAt: '2022-11-01 12:12:12'
         );
 
         $category->update(
@@ -73,6 +86,7 @@ class CategoryUnitTest extends TestCase
             description: 'New task'
         );
 
+        // $this->assertEquals($uuid, $this->id);
         self::assertEquals('new_name', $category->name);
     }
 
@@ -80,7 +94,7 @@ class CategoryUnitTest extends TestCase
     {
         try {
             $category = new Category(
-                name: "Ni",
+                name: "NiM Love ",
                 description: 'New Desc'
             );
             $this->assertTrue((bool)false);

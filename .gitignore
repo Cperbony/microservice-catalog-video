@@ -2,3 +2,4 @@
 *.log
 phpunit.xml
 .phpunit.result.cache
+composer.json

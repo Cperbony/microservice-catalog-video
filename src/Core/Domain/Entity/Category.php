@@ -2,28 +2,25 @@
 
 namespace Core\Domain\Entity;
 
+use DateTime;
+use Core\Domain\ValueObject\Uuid;
+use Core\Domain\Validation\DomainValidation;
 use Core\Domain\Entity\Traits\MethodsMagicsTraits;
 use Core\Domain\Exception\EntityValidationException;
-use Core\Domain\Validation\DomainValidation;
 
 class Category
 {
     use MethodsMagicsTraits;
 
-    /**
-     * @param string $id
-     * @param string $name
-     * @param string $description
-     * @param bool $isActive
-     * @throws EntityValidationException
-     */
-
     public function __construct(
-        protected string $id = 'id',
+        protected Uuid|string $id,
         protected string $name,
         protected string $description = '',
-        protected bool $isActive = true
+        protected bool $isActive = true,
+        protected DateTime|string $createdAt = '',
     ) {
+        $this->id = $this->id ? new Uuid($this->id) : Uuid::random();
+        $this->createdAt = $this->createdAt ? new DateTime($this->createdAt) : new DateTime();
         $this->validate();
     }
 
