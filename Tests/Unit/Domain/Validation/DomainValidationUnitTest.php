@@ -1,10 +1,11 @@
 <?php
 
-namespace Unit\Domain\Validation;
+namespace Tests\Unit\Domain\Validation;
 
-use Core\Domain\Exception\EntityValidationException;
-use Core\Domain\Validation\DomainValidation;
+use Throwable;
 use PHPUnit\Framework\TestCase;
+use Core\Domain\Validation\DomainValidation;
+use Core\Domain\Exception\EntityValidationException;
 
 class DomainValidationUnitTest extends TestCase
 {
@@ -12,11 +13,11 @@ class DomainValidationUnitTest extends TestCase
     public function testNotNull()
     {
         try {
-            $value = 'teste';
-            DomainValidation::notNull($value, 'claus');
+            $value = '';
+            DomainValidation::notNull($value);
 
             $this->assertTrue((bool)false);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->assertInstanceOf(EntityValidationException::class, $th);
 
         }
@@ -25,12 +26,12 @@ class DomainValidationUnitTest extends TestCase
     public function testNotNullCustomMessageException()
     {
         try {
-            $value = 'teste';
-            DomainValidation::notNull($value, 'Custom Message');
+            $value = '';
+            DomainValidation::notNull($value, 'Custom Message error');
 
             $this->assertTrue((bool)false);
-        } catch (\Throwable $th) {
-            $this->assertInstanceOf(EntityValidationException::class, $th, 'Custom Message');
+        } catch (Throwable $th) {
+            $this->assertInstanceOf(EntityValidationException::class, $th, 'Custom Message error');
 
         }
     }

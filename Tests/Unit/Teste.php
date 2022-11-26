@@ -1,11 +1,11 @@
 <?php
 
-namespace Core;
+namespace Tests\Unit;
 
 class Teste
 {
   public function foo()
   {
-    return '123';
+    return '1234';
   }
 }

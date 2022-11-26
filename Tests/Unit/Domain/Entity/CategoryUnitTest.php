@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Domain\Entity;
+namespace Tests\Unit\Domain\Entity;
 
 
 use Throwable;
@@ -20,7 +20,6 @@ class CategoryUnitTest extends TestCase
         $uuid = (String) Uuid::uuid4()->toString();
         
         $category = new Category(
-            id: $uuid,
             name: 'New Cat',
             description: 'New Desc',
             isActive: true
@@ -36,29 +35,24 @@ class CategoryUnitTest extends TestCase
 
     }
 
-    // public function testActived()
-    // {
-    //     $category = new Category(
-    //         id: '123',
-    //         name: 'Ne',
-    //         isActive: false,
-    //         createdAt: '2022-11-01 12:12:12'
-    //     );
+    public function testActived()
+    {
+        $category = new Category(
+            name: 'New cat',
+            isActive: false
+        );
 
-    //     $this->assertFalse($category->isActive);
-    //     $category->activate();
-    //     $this->assertTrue(false, $category->isActive);
-    // }
+        $this->assertFalse($category->isActive);
+        $category->activate();
+        $this->assertTrue($category->isActive);
+    }
 
     public function testDisabled()
     {
         $uuid = (String) Uuid::uuid4()->toString();
         
         $category = new Category(
-            id: $uuid,
-            name: 'New Cat',
-            description: 'New Desc',
-            isActive: true
+            name: 'New Cat'
         );
 
         $this->assertTrue($category->isActive);
@@ -71,14 +65,14 @@ class CategoryUnitTest extends TestCase
      */
     public function testUpdate()
     {
-        $uuid = (String) Uuid::uuid4()->toString();
+        $uuid = (string) Uuid::uuid4()->toString();
 
         $category = new Category(
             id: $uuid,
             name: 'New Cat',
             description: 'New Desc',
             isActive: true,
-            createdAt: '2022-11-01 12:12:12'
+            createdAt: '2023-01-01 12:12:12'
         );
 
         $category->update(
@@ -86,23 +80,37 @@ class CategoryUnitTest extends TestCase
             description: 'New task'
         );
 
-        // $this->assertEquals($uuid, $this->id);
-        self::assertEquals('new_name', $category->name);
+        $this->assertEquals($uuid, $category->id());
+        $this::assertEquals('new_name', $category->name);
     }
 
-    public function testExceptionName()
-    {
-        try {
-            $category = new Category(
-                name: "NiM Love ",
-                description: 'New Desc'
-            );
-            $this->assertTrue((bool)false);
+    // public function testExceptionName()
+    // {
+    //     try {
+    //         $category = new Category(
+    //             name: "Na",
+    //             description: 'New Desc'
+    //         );
+    //         $this->assertTrue((bool)false);
 
-        } catch (Throwable $th) {
-            $this->assertInstanceOf(EntityValidationException::class, $th);
+    //     } catch (Throwable $th) {
+    //         $this->assertInstanceOf(EntityValidationException::class, $th);
 
-        }
-    }
+    //     }
+    // }
+    
+    // public function testExceptionDescription()
+    // {
+    //     try {
+    //         new Category(
+    //             name: 'Name Cat',
+    //             description: random_bytes(999999)
+    //         );
+
+    //         $this->assertTrue(false);
+    //     } catch (Throwable $th) {
+    //         $this->assertInstanceOf(EntityValidationException::class, $th);
+    //     }
+    // }
 
 }

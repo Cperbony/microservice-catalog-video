@@ -13,14 +13,15 @@ class Category
     use MethodsMagicsTraits;
 
     public function __construct(
-        protected Uuid|string $id,
-        protected string $name,
+        protected Uuid|string $id = '',
+        protected string $name = '',
         protected string $description = '',
         protected bool $isActive = true,
-        protected DateTime|string $createdAt = '',
+        protected DateTime|string $createdAt = ''
     ) {
         $this->id = $this->id ? new Uuid($this->id) : Uuid::random();
         $this->createdAt = $this->createdAt ? new DateTime($this->createdAt) : new DateTime();
+        
         $this->validate();
     }
 
@@ -47,11 +48,12 @@ class Category
     /**
      * @throws EntityValidationException
      */
-    public function validate()
+    private function validate()
     {
-        DomainValidation::notNull($this->name);
+        // DomainValidation::notNull($this->name);
         DomainValidation::strMaxLength($this->name);
-        DomainValidation::strMinLength($this->description);
+        // DomainValidation::strMinLength($this->description);
+        DomainValidation::strCanNullAndMaxlength($this->description, 255);
     }
 
 }
