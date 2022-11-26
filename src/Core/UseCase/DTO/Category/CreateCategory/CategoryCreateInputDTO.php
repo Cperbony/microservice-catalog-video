@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\UseCase\DTO\Category;
+namespace Core\UseCase\DTO\Category\CreateCategory;
 
 class CategoryCreateInputDTO
 {
@@ -8,8 +8,6 @@ class CategoryCreateInputDTO
         public string $name,
         public string $description = '',
         public bool $isActive = true,
-    )
-    {
-        
+    ) {
     }
 }

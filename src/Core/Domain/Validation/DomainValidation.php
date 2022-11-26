@@ -6,44 +6,27 @@ use Core\Domain\Exception\EntityValidationException;
 
 class DomainValidation
 {
-
-    /**
-     * @throws EntityValidationException
-     */
-    public static function notNull(string $value, string $exceptionMessage = null)
+    public static function notNull(string $value, string $exceptMessage = null)
     {
-        if(empty($value)) {
-            throw new EntityValidationException(($exceptionMessage ?? 'Should not empty or null!'));
-        }
+        if (empty($value))
+            throw new EntityValidationException($exceptMessage ?? 'Should not be empty or null');
     }
 
-    /**
-     * @throws EntityValidationException
-     */
-    public static function strMaxLength(string $value, int $length = 255, string $exceptionMessage = null)
+    public static function strMaxLength(string $value, int $length = 255, string $exceptMessage = null)
     {
-        if(strlen($value) >= $length) {
-            throw new EntityValidationException(($exceptionMessage ??  "The value must not be greater than {$length} characteres"));
-        }
+        if (strlen($value) >= $length) 
+            throw new EntityValidationException($exceptMessage ?? "The value must not be greater than {$length} characters");
     }
 
-    /**
-     * @throws EntityValidationException
-     */
-    public static function strMinLength(string $value, int $length = 3, string $exceptionMessage = null)
+    public static function strMinLength(string $value, int $length = 3, string $exceptMessage = null)
     {
-        if(strlen($value) < $length) {
-            throw new EntityValidationException(($exceptionMessage ?? "The value must not be greater than {$length} characteres"));
-        }
+        if (strlen($value) < $length) 
+            throw new EntityValidationException($exceptMessage ?? "The value must be at least {$length} characters");
     }
 
-    /**
-     * @throws EntityValidationException
-     */
-    public static function strCanNullAndMaxlength(string $value, $length = 255, $exceptionMessage = null)
+    public static function strCanNullAndMaxLength(string $value = '', int $length = 255, string $exceptMessage = null)
     {
-        if(empty($value) && strlen($value) > $length) {
-            throw new EntityValidationException(($exceptionMessage ?? "The value must not be greater than {$length} characteres"));
-        }
+        if (!empty($value) && strlen($value) > $length) 
+            throw new EntityValidationException($exceptMessage ?? "The value must not be greater than {$length} characters");
     }
 }
