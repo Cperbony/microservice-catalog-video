@@ -29,6 +29,7 @@ class CreateCategoryUseCaseUnitTest extends TestCase
         ]);
 
         $this->mockEntity->shouldReceive('id')->andReturn($uuid);
+        $this->mockEntity->shouldReceive('createdAt')->andReturn(date('Y-m-d H:i:s'));
 
         // Mockar o repositorio
         $this->mockRepo = Mockery::mock(stdClass::class, CategoryRepositoryInterface::class);

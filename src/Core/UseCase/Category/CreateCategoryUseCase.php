@@ -6,6 +6,7 @@ use Core\Domain\Entity\Category;
 use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\UseCase\DTO\Category\CreateCategory\CategoryCreateInputDTO;
 use Core\UseCase\DTO\Category\CreateCategory\CategoryCreateOutputDTO;
+use Core\Domain\Entity\Traits\MethodsMagicsTraits;
 
 
 
@@ -36,6 +37,7 @@ class CreateCategoryUseCase
             name: $newCategory->name,
             description: $newCategory->description,
             is_active: $newCategory->isActive,
+            created_at: $newCategory->createdAt()
         );
     }
 }
